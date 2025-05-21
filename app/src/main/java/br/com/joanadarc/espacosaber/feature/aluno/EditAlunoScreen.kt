@@ -1,0 +1,292 @@
+package br.com.joanadarc.espacosaber.feature.aluno
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.joanadarc.espacosaber.core.designsystem.component.EsTextField
+
+@Composable
+internal fun EditAlunoRoute(
+    modifier: Modifier = Modifier,
+    viewModel: EditAlunoViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    EditAlunoScreen(
+        uiState = uiState,
+        modifier = modifier,
+    )
+}
+
+@Composable
+internal fun EditAlunoScreen(
+    uiState: EditAlunoUiState,
+    modifier: Modifier = Modifier,
+) {
+    when (uiState) {
+        EditAlunoUiState.Loading -> Unit
+        is EditAlunoUiState.Success -> EditAlunoScreen(
+            uiState = uiState,
+            modifier = modifier,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun EditAlunoScreen(
+    uiState: EditAlunoUiState.Success,
+    modifier: Modifier = Modifier,
+) {
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(text = "Aluno") },
+                navigationIcon = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null,
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = null,
+                        )
+                    }
+                }
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                )
+            }
+        },
+        modifier = modifier,
+    ) { padding ->
+        var state by remember { mutableIntStateOf(0) }
+        val tabs = listOf("Pessoal", "Escolar", "Endereço")
+        Column(modifier = Modifier.padding(padding)) {
+            PrimaryTabRow(selectedTabIndex = state) {
+                tabs.forEachIndexed { index, tab ->
+                    Tab(
+                        selected = state == index,
+                        onClick = { state = index },
+                        text = {
+                            Text(
+                                text = tab,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                    )
+                }
+            }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(16.dp),
+            ) {
+                when (state) {
+                    0 -> TabPessoal(uiState)
+                    1 -> TabEscolar(uiState)
+                    2 -> TabEndereco(uiState)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun TabPessoal(
+    uiState: EditAlunoUiState.Success,
+) {
+    EsTextField(
+        value = uiState.aluno.nome ?: "",
+        onValueChange = {},
+        label = "Nome",
+    )
+    EsTextField(
+        value = uiState.aluno.responsavel?.nome ?: "",
+        onValueChange = {},
+        label = "Responsável",
+        readOnly = true,
+        leadingIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
+        }
+    )
+    EsTextField(
+        value = uiState.aluno.cpf ?: "",
+        onValueChange = {},
+        label = "CPF",
+    )
+    EsTextField(
+        value = uiState.aluno.telefone ?: "",
+        onValueChange = {},
+        label = "Telefone",
+    )
+    EsTextField(
+        value = uiState.aluno.email ?: "",
+        onValueChange = {},
+        label = "E-mail",
+    )
+    EsTextField(
+        value = uiState.aluno.dataNascimento ?: "",
+        onValueChange = {},
+        label = "Data de Nascimento",
+    )
+    EsTextField(
+        value = uiState.aluno.rg ?: "",
+        onValueChange = {},
+        label = "RG",
+    )
+}
+
+@Composable
+private fun TabEscolar(
+    uiState: EditAlunoUiState.Success,
+) {
+    EsTextField(
+        value = uiState.aluno.escola ?: "",
+        onValueChange = {},
+        label = "Escola",
+        readOnly = true,
+        leadingIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
+        }
+    )
+    EsTextField(
+        value = uiState.aluno.serie.toString(),
+        onValueChange = {},
+        label = "Série",
+    )
+    EsTextField(
+        value = uiState.aluno.turno ?: "",
+        onValueChange = {},
+        label = "Turno",
+        readOnly = true,
+        leadingIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
+        }
+    )
+}
+
+@Composable
+private fun TabEndereco(
+    uiState: EditAlunoUiState.Success,
+) {
+    EsTextField(
+        value = uiState.aluno.endereco?.logradouro ?: "",
+        onValueChange = {},
+        label = "Logradouro",
+        readOnly = true,
+        leadingIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
+        }
+    )
+    EsTextField(
+        value = uiState.aluno.endereco?.numero ?: "",
+        onValueChange = {},
+        label = "Número",
+    )
+    EsTextField(
+        value = uiState.aluno.endereco?.complemento ?: "",
+        onValueChange = {},
+        label = "Complemento",
+    )
+    EsTextField(
+        value = uiState.aluno.endereco?.bairro ?: "",
+        onValueChange = {},
+        label = "Bairro",
+        readOnly = true,
+        leadingIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
+        }
+    )
+    EsTextField(
+        value = uiState.aluno.endereco?.cep ?: "",
+        onValueChange = {},
+        label = "CEP",
+    )
+    EsTextField(
+        value = uiState.aluno.endereco?.cidade ?: "",
+        onValueChange = {},
+        label = "Cidade",
+        readOnly = true,
+        leadingIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
+        }
+    )
+    EsTextField(
+        value = uiState.aluno.endereco?.estado ?: "",
+        onValueChange = {},
+        label = "Estado",
+        readOnly = true,
+        leadingIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
+        }
+    )
+}

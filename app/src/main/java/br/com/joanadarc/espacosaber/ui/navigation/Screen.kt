@@ -7,3 +7,6 @@ object HomeRoute
 
 @Serializable
 object AlunoRoute
+
+@Serializable
+object EditAlunoRoute
