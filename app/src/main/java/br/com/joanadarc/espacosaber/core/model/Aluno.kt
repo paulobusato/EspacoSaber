@@ -3,6 +3,7 @@ package br.com.joanadarc.espacosaber.core.model
 import java.time.LocalDate
 
 data class Aluno(
+    val id: String? = null,
     val nome: String? = null,
     val cpf: String? = null,
     val dataNascimento: String? = null,
