@@ -2,6 +2,8 @@ package br.com.joanadarc.espacosaber.core.data.di
 
 import br.com.joanadarc.espacosaber.core.data.repository.AlunoRepository
 import br.com.joanadarc.espacosaber.core.data.repository.AlunoRepositoryImpl
+import br.com.joanadarc.espacosaber.core.data.repository.ResponsavelRepository
+import br.com.joanadarc.espacosaber.core.data.repository.ResponsavelRepositoryImpl
 import br.com.joanadarc.espacosaber.core.data.repository.SessaoRepository
 import br.com.joanadarc.espacosaber.core.data.repository.SessaoRepositoryImpl
 import dagger.Binds
@@ -21,4 +23,9 @@ abstract class DataModule {
     internal abstract fun bindsSessaoRepository(
         sessaoRepository: SessaoRepositoryImpl,
     ): SessaoRepository
+
+    @Binds
+    internal abstract fun bindsResponsavelRepository(
+        responsavelRepository: ResponsavelRepositoryImpl,
+    ): ResponsavelRepository
 }
