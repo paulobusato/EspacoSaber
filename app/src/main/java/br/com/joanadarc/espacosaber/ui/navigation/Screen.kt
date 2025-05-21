@@ -10,3 +10,6 @@ object AlunoRoute
 
 @Serializable
 object EditAlunoRoute
+
+@Serializable
+object EditResponsavelRoute

@@ -10,8 +10,10 @@ import androidx.navigation.compose.rememberNavController
 import br.com.joanadarc.espacosaber.feature.aluno.AlunoRoute
 import br.com.joanadarc.espacosaber.feature.aluno.EditAlunoRoute
 import br.com.joanadarc.espacosaber.feature.home.HomeRoute
+import br.com.joanadarc.espacosaber.feature.responsavel.EditResponsavelRoute
 import br.com.joanadarc.espacosaber.ui.navigation.AlunoRoute
 import br.com.joanadarc.espacosaber.ui.navigation.EditAlunoRoute
+import br.com.joanadarc.espacosaber.ui.navigation.EditResponsavelRoute
 import br.com.joanadarc.espacosaber.ui.navigation.HomeRoute
 import br.com.joanadarc.espacosaber.ui.theme.EspacoSaberTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +39,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable<EditAlunoRoute> {
                         EditAlunoRoute()
+                    }
+                    composable<EditResponsavelRoute> {
+                        EditResponsavelRoute()
                     }
                 }
             }
