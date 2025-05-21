@@ -85,7 +85,7 @@ private fun HomeScreen(
             Items(items = uiState.sessoes) { sessao ->
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = sessao.aluno.nome ?: "",
+                        text = sessao.aluno?.nome ?: "",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier,
                     )
@@ -96,14 +96,14 @@ private fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
-                            text = sessao.data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+                            text = sessao.data?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) ?: "",
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier,
                         )
                         Text(
-                            text = sessao.status.descricao,
+                            text = sessao.status?.descricao ?: "",
                             style = MaterialTheme.typography.bodyMedium,
-                            color = Color(sessao.status.cor),
+                            color = Color(sessao.status?.cor ?: 0xFF000000),
                             modifier = Modifier,
                         )
                     }

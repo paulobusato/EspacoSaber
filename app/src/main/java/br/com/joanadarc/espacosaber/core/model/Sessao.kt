@@ -10,7 +10,12 @@ enum class Status(val descricao: String, val cor: Long) {
 }
 
 data class Sessao(
-    val aluno: Aluno,
-    val data: LocalDateTime,
-    val status: Status,
+    val queixa: String? = null,
+    val encaminhamento: String? = null,
+    val atividade: Atividade? = null,
+    val observacao: String? = null,
+    val data: LocalDateTime? = null,
+    val status: Status? = null,
+    val procedimento: String? = null,
+    val aluno: Aluno? = null,
 )
