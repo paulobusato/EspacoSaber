@@ -1,8 +1,6 @@
 package br.com.joanadarc.espacosaber.core.model
 
-import java.time.LocalDate
-
-data class Aluno(
+data class Responsavel(
     val nome: String,
     val cpf: String,
     val dataNascimento: String,
@@ -12,10 +10,4 @@ data class Aluno(
     val rg: String,
     val endereco: Endereco,
     val cidadeNascimento: String,
-    val responsavel: Responsavel,
-    val escola: String,
-    val serie: Int,
-    val turno: String,
-    val dataCadastro: LocalDate,
-    val dataAtualizacao: LocalDate,
 )
