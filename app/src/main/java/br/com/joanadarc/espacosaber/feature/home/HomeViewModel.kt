@@ -1,4 +1,4 @@
-package br.com.joanadarc.espacosaber.ui.screens
+package br.com.joanadarc.espacosaber.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

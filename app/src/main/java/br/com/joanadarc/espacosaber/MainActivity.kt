@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import br.com.joanadarc.espacosaber.ui.screens.HomeRoute
+import br.com.joanadarc.espacosaber.feature.home.HomeRoute
 import br.com.joanadarc.espacosaber.ui.navigation.HomeRoute
 import br.com.joanadarc.espacosaber.ui.theme.EspacoSaberTheme
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,4 +1,4 @@
-package br.com.joanadarc.espacosaber.ui.screens
+package br.com.joanadarc.espacosaber.feature.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
