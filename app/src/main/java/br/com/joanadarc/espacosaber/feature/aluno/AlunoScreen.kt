@@ -89,7 +89,7 @@ private fun AlunoScreen(
             )
             Items(items = uiState.alunos) { aluno ->
                 Text(
-                    text = aluno.nome,
+                    text = aluno.nome ?: "",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(16.dp),
                 )

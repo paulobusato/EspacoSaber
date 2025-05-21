@@ -75,7 +75,7 @@ private fun HomeScreen(
             Title(title = "Alunos")
             Items(items = uiState.alunos) { aluno ->
                 Text(
-                    text = aluno.nome,
+                    text = aluno.nome ?: "",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(16.dp),
                 )
@@ -85,7 +85,7 @@ private fun HomeScreen(
             Items(items = uiState.sessoes) { sessao ->
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = sessao.aluno.nome,
+                        text = sessao.aluno.nome ?: "",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier,
                     )
