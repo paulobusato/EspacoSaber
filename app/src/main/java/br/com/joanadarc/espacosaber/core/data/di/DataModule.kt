@@ -2,6 +2,8 @@ package br.com.joanadarc.espacosaber.core.data.di
 
 import br.com.joanadarc.espacosaber.core.data.repository.AlunoRepository
 import br.com.joanadarc.espacosaber.core.data.repository.AlunoRepositoryImpl
+import br.com.joanadarc.espacosaber.core.data.repository.AtividadeRepository
+import br.com.joanadarc.espacosaber.core.data.repository.AtividadeRepositoryImpl
 import br.com.joanadarc.espacosaber.core.data.repository.BairroRepository
 import br.com.joanadarc.espacosaber.core.data.repository.BairroRepositoryImpl
 import br.com.joanadarc.espacosaber.core.data.repository.CidadeRepository
@@ -63,4 +65,9 @@ abstract class DataModule {
     internal abstract fun bindsEstadoRepository(
         estadoRepository: EstadoRepositoryImpl,
     ): EstadoRepository
+
+    @Binds
+    internal abstract fun bindsAtividadeRepository(
+        atividadeRepository: AtividadeRepositoryImpl,
+    ): AtividadeRepository
 }
