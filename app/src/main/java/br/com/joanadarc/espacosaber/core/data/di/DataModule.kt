@@ -8,6 +8,8 @@ import br.com.joanadarc.espacosaber.core.data.repository.BairroRepository
 import br.com.joanadarc.espacosaber.core.data.repository.BairroRepositoryImpl
 import br.com.joanadarc.espacosaber.core.data.repository.CidadeRepository
 import br.com.joanadarc.espacosaber.core.data.repository.CidadeRepositoryImpl
+import br.com.joanadarc.espacosaber.core.data.repository.EscolaRepository
+import br.com.joanadarc.espacosaber.core.data.repository.EscolaRepositoryImpl
 import br.com.joanadarc.espacosaber.core.data.repository.EstadoRepository
 import br.com.joanadarc.espacosaber.core.data.repository.EstadoRepositoryImpl
 import br.com.joanadarc.espacosaber.core.data.repository.LogradouroRepository
@@ -70,4 +72,9 @@ abstract class DataModule {
     internal abstract fun bindsAtividadeRepository(
         atividadeRepository: AtividadeRepositoryImpl,
     ): AtividadeRepository
+
+    @Binds
+    internal abstract fun bindsEscolaRepository(
+        escolaRepository: EscolaRepositoryImpl,
+    ): EscolaRepository
 }
