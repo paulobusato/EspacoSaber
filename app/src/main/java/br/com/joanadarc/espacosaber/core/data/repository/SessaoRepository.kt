@@ -3,6 +3,7 @@ package br.com.joanadarc.espacosaber.core.data.repository
 import br.com.joanadarc.espacosaber.core.model.Aluno
 import br.com.joanadarc.espacosaber.core.model.Atividade
 import br.com.joanadarc.espacosaber.core.model.Endereco
+import br.com.joanadarc.espacosaber.core.model.Procedimento
 import br.com.joanadarc.espacosaber.core.model.Responsavel
 import br.com.joanadarc.espacosaber.core.model.Sessao
 import br.com.joanadarc.espacosaber.core.model.Status
@@ -77,7 +78,7 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                 dataAtualizacao = LocalDateTime.now(),
             ),
             observacao = "Observação teste",
-            procedimento = "Procedimento teste",
+            procedimento = Procedimento.Diagnostico,
         ),
     )
 
@@ -141,7 +142,7 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                     dataAtualizacao = LocalDateTime.now(),
                 ),
                 observacao = "Observação teste",
-                procedimento = "Procedimento teste",
+                procedimento = Procedimento.Tratamento,
             ),
             Sessao(
                 aluno = Aluno(
@@ -201,7 +202,7 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                     dataAtualizacao = LocalDateTime.now(),
                 ),
                 observacao = "Observação teste",
-                procedimento = "Procedimento teste",
+                procedimento = Procedimento.Prognostico,
             ),
             Sessao(
                 aluno = Aluno(
@@ -261,7 +262,7 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                     dataAtualizacao = LocalDateTime.now(),
                 ),
                 observacao = "Observação teste",
-                procedimento = "Procedimento teste",
+                procedimento = Procedimento.Intervencao,
             ),
             Sessao(
                 aluno = Aluno(
@@ -321,7 +322,7 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                     dataAtualizacao = LocalDateTime.now(),
                 ),
                 observacao = "Observação teste",
-                procedimento = "Procedimento teste",
+                procedimento = Procedimento.Avaliacao,
             ),
             Sessao(
                 aluno = Aluno(
@@ -381,7 +382,7 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                     dataAtualizacao = LocalDateTime.now(),
                 ),
                 observacao = "Observação teste",
-                procedimento = "Procedimento teste",
+                procedimento = Procedimento.Diagnostico,
             ),
         )
     )

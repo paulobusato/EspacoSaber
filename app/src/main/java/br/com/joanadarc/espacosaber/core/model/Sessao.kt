@@ -9,6 +9,14 @@ enum class Status(val descricao: String, val cor: Long) {
     Cancelado(descricao = "Cancelado", cor = 0xFFC41B1B),
 }
 
+enum class Procedimento(val descricao: String) {
+    Diagnostico(descricao = "Diagnóstico"),
+    Tratamento(descricao = "Tratamento"),
+    Prognostico(descricao = "Prognóstico"),
+    Intervencao(descricao = "Intervenção"),
+    Avaliacao(descricao = "Avaliação"),
+}
+
 data class Sessao(
     val queixa: String? = null,
     val encaminhamento: String? = null,
@@ -16,6 +24,6 @@ data class Sessao(
     val observacao: String? = null,
     val data: LocalDateTime? = null,
     val status: Status? = null,
-    val procedimento: String? = null,
+    val procedimento: Procedimento? = null,
     val aluno: Aluno? = null,
 )
