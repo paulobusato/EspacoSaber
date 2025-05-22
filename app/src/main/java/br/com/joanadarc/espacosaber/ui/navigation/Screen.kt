@@ -13,3 +13,6 @@ object EditAlunoRoute
 
 @Serializable
 object EditResponsavelRoute
+
+@Serializable
+object SessaoRoute
