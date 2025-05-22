@@ -11,10 +11,12 @@ import br.com.joanadarc.espacosaber.feature.aluno.AlunoRoute
 import br.com.joanadarc.espacosaber.feature.aluno.EditAlunoRoute
 import br.com.joanadarc.espacosaber.feature.home.HomeRoute
 import br.com.joanadarc.espacosaber.feature.responsavel.EditResponsavelRoute
+import br.com.joanadarc.espacosaber.feature.sessao.EditSessaoRoute
 import br.com.joanadarc.espacosaber.feature.sessao.SessaoRoute
 import br.com.joanadarc.espacosaber.ui.navigation.AlunoRoute
 import br.com.joanadarc.espacosaber.ui.navigation.EditAlunoRoute
 import br.com.joanadarc.espacosaber.ui.navigation.EditResponsavelRoute
+import br.com.joanadarc.espacosaber.ui.navigation.EditSessaoRoute
 import br.com.joanadarc.espacosaber.ui.navigation.HomeRoute
 import br.com.joanadarc.espacosaber.ui.navigation.SessaoRoute
 import br.com.joanadarc.espacosaber.ui.theme.EspacoSaberTheme
@@ -47,6 +49,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable<SessaoRoute> {
                         SessaoRoute()
+                    }
+                    composable<EditSessaoRoute> {
+                        EditSessaoRoute()
                     }
                 }
             }
