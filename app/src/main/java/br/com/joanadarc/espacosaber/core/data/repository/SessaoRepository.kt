@@ -1,6 +1,7 @@
 package br.com.joanadarc.espacosaber.core.data.repository
 
 import br.com.joanadarc.espacosaber.core.model.Aluno
+import br.com.joanadarc.espacosaber.core.model.Atividade
 import br.com.joanadarc.espacosaber.core.model.Endereco
 import br.com.joanadarc.espacosaber.core.model.Responsavel
 import br.com.joanadarc.espacosaber.core.model.Sessao
@@ -66,7 +67,15 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
             status = Status.Agendado,
             queixa = "Queixa teste",
             encaminhamento = "Encaminhamento teste",
-            atividade = null,
+            atividade = Atividade(
+                nome = "Atividade teste",
+                descricao = "Descrição teste",
+                categoria = "Categoria teste",
+                assunto = "Assunto teste",
+                area = "Área teste",
+                dataCadastro = LocalDate.now(),
+                dataAtualizacao = LocalDateTime.now(),
+            ),
             observacao = "Observação teste",
             procedimento = "Procedimento teste",
         ),
@@ -120,6 +129,19 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                 ),
                 data = LocalDateTime.now(),
                 status = Status.Agendado,
+                queixa = "Queixa teste",
+                encaminhamento = "Encaminhamento teste",
+                atividade = Atividade(
+                    nome = "Atividade teste",
+                    descricao = "Descrição teste",
+                    categoria = "Categoria teste",
+                    assunto = "Assunto teste",
+                    area = "Área teste",
+                    dataCadastro = LocalDate.now(),
+                    dataAtualizacao = LocalDateTime.now(),
+                ),
+                observacao = "Observação teste",
+                procedimento = "Procedimento teste",
             ),
             Sessao(
                 aluno = Aluno(
@@ -167,6 +189,19 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                 ),
                 data = LocalDateTime.now(),
                 status = Status.Cancelado,
+                queixa = "Queixa teste",
+                encaminhamento = "Encaminhamento teste",
+                atividade = Atividade(
+                    nome = "Atividade teste",
+                    descricao = "Descrição teste",
+                    categoria = "Categoria teste",
+                    assunto = "Assunto teste",
+                    area = "Área teste",
+                    dataCadastro = LocalDate.now(),
+                    dataAtualizacao = LocalDateTime.now(),
+                ),
+                observacao = "Observação teste",
+                procedimento = "Procedimento teste",
             ),
             Sessao(
                 aluno = Aluno(
@@ -214,6 +249,19 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                 ),
                 data = LocalDateTime.now(),
                 status = Status.Agendado,
+                queixa = "Queixa teste",
+                encaminhamento = "Encaminhamento teste",
+                atividade = Atividade(
+                    nome = "Atividade teste",
+                    descricao = "Descrição teste",
+                    categoria = "Categoria teste",
+                    assunto = "Assunto teste",
+                    area = "Área teste",
+                    dataCadastro = LocalDate.now(),
+                    dataAtualizacao = LocalDateTime.now(),
+                ),
+                observacao = "Observação teste",
+                procedimento = "Procedimento teste",
             ),
             Sessao(
                 aluno = Aluno(
@@ -261,6 +309,19 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                 ),
                 data = LocalDateTime.now(),
                 status = Status.Concluido,
+                queixa = "Queixa teste",
+                encaminhamento = "Encaminhamento teste",
+                atividade = Atividade(
+                    nome = "Atividade teste",
+                    descricao = "Descrição teste",
+                    categoria = "Categoria teste",
+                    assunto = "Assunto teste",
+                    area = "Área teste",
+                    dataCadastro = LocalDate.now(),
+                    dataAtualizacao = LocalDateTime.now(),
+                ),
+                observacao = "Observação teste",
+                procedimento = "Procedimento teste",
             ),
             Sessao(
                 aluno = Aluno(
@@ -308,6 +369,19 @@ class SessaoRepositoryImpl @Inject constructor() : SessaoRepository {
                 ),
                 data = LocalDateTime.now(),
                 status = Status.Aberto,
+                queixa = "Queixa teste",
+                encaminhamento = "Encaminhamento teste",
+                atividade = Atividade(
+                    nome = "Atividade teste",
+                    descricao = "Descrição teste",
+                    categoria = "Categoria teste",
+                    assunto = "Assunto teste",
+                    area = "Área teste",
+                    dataCadastro = LocalDate.now(),
+                    dataAtualizacao = LocalDateTime.now(),
+                ),
+                observacao = "Observação teste",
+                procedimento = "Procedimento teste",
             ),
         )
     )
