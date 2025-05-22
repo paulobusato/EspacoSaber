@@ -20,13 +20,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.joanadarc.espacosaber.core.designsystem.component.EsSearchBottomSheet
 import br.com.joanadarc.espacosaber.core.designsystem.component.EsTextField
 
 @Composable
@@ -93,6 +96,19 @@ private fun EditResponsavelScreen(
         },
         modifier = modifier,
     ) { padding ->
+        var openSheet by rememberSaveable { mutableStateOf(false) }
+        var entidade by rememberSaveable { mutableStateOf("") }
+        val items by rememberSaveable(entidade) {
+            when (entidade) {
+                "Logradouro" -> mutableStateOf(uiState.logradouros.map { it.nome })
+                "Bairro" -> mutableStateOf(uiState.bairros.map { it.nome })
+                "Cidade" -> mutableStateOf(uiState.cidades.map { it.nome })
+                "Estado" -> mutableStateOf(uiState.estados.map { it.nome })
+                "Nacionalidade" -> mutableStateOf(uiState.nacionalidades.map { it.nome })
+                else -> mutableStateOf(listOf())
+            }
+        }
+
         var state by remember { mutableIntStateOf(0) }
         val tabs = listOf("Pessoal", "Endereço")
         Column(modifier = Modifier.padding(padding)) {
@@ -116,17 +132,32 @@ private fun EditResponsavelScreen(
                 modifier = Modifier.padding(16.dp),
             ) {
                 when (state) {
-                    0 -> TabPessoal(uiState)
-                    1 -> TabEndereco(uiState)
+                    0 -> TabPessoal(uiState) {
+                        entidade = it
+                        openSheet = true
+                    }
+
+                    1 -> TabEndereco(uiState) {
+                        entidade = it
+                        openSheet = true
+                    }
                 }
             }
         }
+
+        EsSearchBottomSheet(
+            entidade = entidade,
+            items = items,
+            openSheet = openSheet,
+            onOpenSheet = { openSheet = it },
+        )
     }
 }
 
 @Composable
 private fun TabPessoal(
     uiState: EditResponsavelUiState.Success,
+    onSearch: (String) -> Unit,
 ) {
     EsTextField(
         value = uiState.responsavel.nome ?: "",
@@ -144,7 +175,7 @@ private fun TabPessoal(
         label = "Nacionalidade",
         readOnly = true,
         leadingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onSearch("Nacionalidade") }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
@@ -158,7 +189,7 @@ private fun TabPessoal(
         label = "Cidade de Nascimento",
         readOnly = true,
         leadingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onSearch("Cidade") }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
@@ -191,6 +222,7 @@ private fun TabPessoal(
 @Composable
 private fun TabEndereco(
     uiState: EditResponsavelUiState.Success,
+    onSearch: (String) -> Unit,
 ) {
     EsTextField(
         value = uiState.responsavel.endereco?.logradouro ?: "",
@@ -198,7 +230,7 @@ private fun TabEndereco(
         label = "Logradouro",
         readOnly = true,
         leadingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onSearch("Logradouro") }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
@@ -222,7 +254,7 @@ private fun TabEndereco(
         label = "Bairro",
         readOnly = true,
         leadingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onSearch("Bairro") }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
@@ -241,7 +273,7 @@ private fun TabEndereco(
         label = "Cidade",
         readOnly = true,
         leadingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onSearch("Cidade") }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
@@ -255,7 +287,7 @@ private fun TabEndereco(
         label = "Estado",
         readOnly = true,
         leadingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onSearch("Estado") }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
