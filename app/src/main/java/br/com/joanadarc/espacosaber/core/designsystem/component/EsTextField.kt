@@ -18,6 +18,7 @@ fun EsTextField(
     modifier: Modifier = Modifier,
     leadingIcon: @Composable (() -> Unit)? = null,
     readOnly: Boolean = false,
+    minLines: Int = 1,
 ) {
     TextField(
         value = value,
@@ -33,6 +34,7 @@ fun EsTextField(
                 )
             }
         },
+        minLines = minLines,
         modifier = modifier.fillMaxWidth(),
     )
 }
