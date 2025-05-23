@@ -67,6 +67,8 @@ fun EsSearchBottomSheet(
                 OutlinedCard(
                     onClick = {
                         onOpenSheet(false)
+                        entidadeId = ""
+                        entidadeNome = ""
 
                         if (entidade == "Responsavel") {
                             onEditResponsavel(null)
