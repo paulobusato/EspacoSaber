@@ -35,11 +35,13 @@ import br.com.joanadarc.espacosaber.core.designsystem.component.EsTextField
 @Composable
 internal fun EditAlunoRoute(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
     viewModel: EditAlunoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     EditAlunoScreen(
         uiState = uiState,
+        onBack = onBack,
         onAlterarEntidade =  viewModel::alterarEntidade,
         modifier = modifier,
     )
@@ -48,6 +50,7 @@ internal fun EditAlunoRoute(
 @Composable
 internal fun EditAlunoScreen(
     uiState: EditAlunoUiState,
+    onBack: () -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -55,6 +58,7 @@ internal fun EditAlunoScreen(
         EditAlunoUiState.Loading -> Unit
         is EditAlunoUiState.Success -> EditAlunoScreen(
             uiState = uiState,
+            onBack = onBack,
             onAlterarEntidade = onAlterarEntidade,
             modifier = modifier,
         )
@@ -65,6 +69,7 @@ internal fun EditAlunoScreen(
 @Composable
 private fun EditAlunoScreen(
     uiState: EditAlunoUiState.Success,
+    onBack: () -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -73,7 +78,7 @@ private fun EditAlunoScreen(
             CenterAlignedTopAppBar(
                 title = { Text(text = "Aluno") },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,

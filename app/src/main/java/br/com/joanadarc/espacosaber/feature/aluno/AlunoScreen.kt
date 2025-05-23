@@ -29,11 +29,15 @@ import br.com.joanadarc.espacosaber.core.designsystem.component.EsSearchInput
 @Composable
 internal fun AlunoRoute(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
+    onAdd: () -> Unit,
     viewModel: AlunoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     AlunoScreen(
         uiState = uiState,
+        onBack = onBack,
+        onAdd = onAdd,
         modifier = modifier,
     )
 }
@@ -41,12 +45,16 @@ internal fun AlunoRoute(
 @Composable
 internal fun AlunoScreen(
     uiState: AlunoUiState,
+    onBack: () -> Unit,
+    onAdd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (uiState) {
         AlunoUiState.Loading -> Unit
         is AlunoUiState.Success -> AlunoScreen(
             uiState = uiState,
+            onBack = onBack,
+            onAdd = onAdd,
             modifier = modifier,
         )
     }
@@ -56,6 +64,8 @@ internal fun AlunoScreen(
 @Composable
 private fun AlunoScreen(
     uiState: AlunoUiState.Success,
+    onBack: () -> Unit,
+    onAdd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -63,7 +73,7 @@ private fun AlunoScreen(
             CenterAlignedTopAppBar(
                 title = { Text(text = "Aluno") },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,
@@ -76,7 +86,7 @@ private fun AlunoScreen(
             ExtendedFloatingActionButton(
                 text = { Text(text = "Aluno") },
                 icon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
-                onClick = {},
+                onClick = onAdd,
             )
         },
         modifier = modifier,

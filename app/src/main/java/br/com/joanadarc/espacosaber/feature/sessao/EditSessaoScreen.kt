@@ -36,11 +36,13 @@ import java.time.format.DateTimeFormatter
 @Composable
 internal fun EditSessaoRoute(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
     viewModel: EditSessaoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     EditSessaoScreen(
         uiState = uiState,
+        onBack = onBack,
         onAlterarEntidade = viewModel::alterarEntidade,
         modifier = modifier,
     )
@@ -49,6 +51,7 @@ internal fun EditSessaoRoute(
 @Composable
 internal fun EditSessaoScreen(
     uiState: EditSessaoUiState,
+    onBack: () -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -56,6 +59,7 @@ internal fun EditSessaoScreen(
         EditSessaoUiState.Loading -> Unit
         is EditSessaoUiState.Success -> EditSessaoScreen(
             uiState = uiState,
+            onBack = onBack,
             onAlterarEntidade = onAlterarEntidade,
             modifier = modifier,
         )
@@ -66,6 +70,7 @@ internal fun EditSessaoScreen(
 @Composable
 private fun EditSessaoScreen(
     uiState: EditSessaoUiState.Success,
+    onBack: () -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -74,7 +79,7 @@ private fun EditSessaoScreen(
             CenterAlignedTopAppBar(
                 title = { Text(text = "Sessão") },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,

@@ -36,11 +36,15 @@ import java.time.format.DateTimeFormatter
 @Composable
 internal fun SessaoRoute(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
+    onAdd: () -> Unit,
     viewModel: SessaoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     SessaoScreen(
         uiState = uiState,
+        onBack = onBack,
+        onAdd = onAdd,
         modifier = modifier,
     )
 }
@@ -48,12 +52,16 @@ internal fun SessaoRoute(
 @Composable
 internal fun SessaoScreen(
     uiState: SessaoUiState,
+    onBack: () -> Unit,
+    onAdd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (uiState) {
         SessaoUiState.Loading -> Unit
         is SessaoUiState.Success -> SessaoScreen(
             uiState = uiState,
+            onBack = onBack,
+            onAdd = onAdd,
             modifier = modifier,
         )
     }
@@ -63,6 +71,8 @@ internal fun SessaoScreen(
 @Composable
 private fun SessaoScreen(
     uiState: SessaoUiState.Success,
+    onBack: () -> Unit,
+    onAdd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -70,7 +80,7 @@ private fun SessaoScreen(
             CenterAlignedTopAppBar(
                 title = { Text(text = "Sessões") },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,
@@ -83,7 +93,7 @@ private fun SessaoScreen(
             ExtendedFloatingActionButton(
                 text = { Text(text = "Sessão") },
                 icon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
-                onClick = {},
+                onClick = onAdd,
             )
         },
         modifier = modifier,

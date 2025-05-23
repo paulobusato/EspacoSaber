@@ -29,16 +29,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.joanadarc.espacosaber.ui.navigation.AlunoRoute
+import br.com.joanadarc.espacosaber.ui.navigation.SessaoRoute
 import java.time.format.DateTimeFormatter
 
 @Composable
 internal fun HomeRoute(
     modifier: Modifier = Modifier,
+    onNavigate: (Any) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
         uiState = uiState,
+        onNavigate = onNavigate,
         modifier = modifier,
     )
 }
@@ -46,12 +50,14 @@ internal fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     uiState: HomeUiState,
+    onNavigate: (Any) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (uiState) {
         HomeUiState.Loading -> Unit
         is HomeUiState.Success -> HomeScreen(
             uiState = uiState,
+            onNavigate = onNavigate,
             modifier = modifier,
         )
     }
@@ -61,6 +67,7 @@ internal fun HomeScreen(
 @Composable
 private fun HomeScreen(
     uiState: HomeUiState.Success,
+    onNavigate: (Any) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -72,7 +79,7 @@ private fun HomeScreen(
         modifier = modifier,
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            Title(title = "Alunos")
+            Title(title = "Alunos", onClick = { onNavigate(AlunoRoute) })
             Items(items = uiState.alunos) { aluno ->
                 Text(
                     text = aluno.nome ?: "",
@@ -81,7 +88,7 @@ private fun HomeScreen(
                 )
             }
 
-            Title(title = "Sessões")
+            Title(title = "Sessões" , onClick = { onNavigate(SessaoRoute) })
             Items(items = uiState.sessoes) { sessao ->
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
@@ -115,11 +122,12 @@ private fun HomeScreen(
 
 @Composable
 private fun Title(
-    modifier: Modifier = Modifier,
     title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
-        onClick = {},
+        onClick = onClick,
         modifier = modifier,
     ) {
         Row(

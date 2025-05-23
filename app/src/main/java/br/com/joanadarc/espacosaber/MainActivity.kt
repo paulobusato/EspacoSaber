@@ -19,6 +19,10 @@ import br.com.joanadarc.espacosaber.ui.navigation.EditResponsavelRoute
 import br.com.joanadarc.espacosaber.ui.navigation.EditSessaoRoute
 import br.com.joanadarc.espacosaber.ui.navigation.HomeRoute
 import br.com.joanadarc.espacosaber.ui.navigation.SessaoRoute
+import br.com.joanadarc.espacosaber.ui.navigation.navigateToAlunos
+import br.com.joanadarc.espacosaber.ui.navigation.navigateToEditAluno
+import br.com.joanadarc.espacosaber.ui.navigation.navigateToEditSessao
+import br.com.joanadarc.espacosaber.ui.navigation.navigateToSessoes
 import br.com.joanadarc.espacosaber.ui.theme.EspacoSaberTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,22 +40,35 @@ class MainActivity : ComponentActivity() {
                     startDestination = HomeRoute,
                 ) {
                     composable<HomeRoute> {
-                        HomeRoute()
+                        HomeRoute(
+                            onNavigate = { route ->
+                                when (route) {
+                                    AlunoRoute -> navController.navigateToAlunos()
+                                    SessaoRoute -> navController.navigateToSessoes()
+                                }
+                            }
+                        )
                     }
                     composable<AlunoRoute> {
-                        AlunoRoute()
+                        AlunoRoute(
+                            onBack = { navController.popBackStack() },
+                            onAdd = { navController.navigateToEditAluno() },
+                        )
                     }
                     composable<EditAlunoRoute> {
-                        EditAlunoRoute()
+                        EditAlunoRoute(onBack = { navController.popBackStack() })
                     }
                     composable<EditResponsavelRoute> {
                         EditResponsavelRoute()
                     }
                     composable<SessaoRoute> {
-                        SessaoRoute()
+                        SessaoRoute(
+                            onBack = { navController.popBackStack() },
+                            onAdd = { navController.navigateToEditSessao() },
+                        )
                     }
                     composable<EditSessaoRoute> {
-                        EditSessaoRoute()
+                        EditSessaoRoute(onBack = { navController.popBackStack() })
                     }
                 }
             }
