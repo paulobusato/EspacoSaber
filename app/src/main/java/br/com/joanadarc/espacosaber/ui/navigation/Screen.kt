@@ -18,8 +18,9 @@ fun NavController.navigateToEditAluno(id: String? = null) = navigate(route = Edi
 
 
 @Serializable
-object EditResponsavelRoute
+data class EditResponsavelRoute(val id: String? = null)
 
+fun NavController.navigateToEditResponsavel(id: String? = null) = navigate(route = EditResponsavelRoute(id))
 
 @Serializable
 object SessaoRoute

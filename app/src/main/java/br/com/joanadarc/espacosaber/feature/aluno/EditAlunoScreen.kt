@@ -36,12 +36,14 @@ import br.com.joanadarc.espacosaber.core.designsystem.component.EsTextField
 internal fun EditAlunoRoute(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
+    onEditResponsavel: (String?) -> Unit,
     viewModel: EditAlunoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     EditAlunoScreen(
         uiState = uiState,
         onBack = onBack,
+        onEditResponsavel = onEditResponsavel,
         onAlterarEntidade =  viewModel::alterarEntidade,
         modifier = modifier,
     )
@@ -51,6 +53,7 @@ internal fun EditAlunoRoute(
 internal fun EditAlunoScreen(
     uiState: EditAlunoUiState,
     onBack: () -> Unit,
+    onEditResponsavel: (String?) -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -59,6 +62,7 @@ internal fun EditAlunoScreen(
         is EditAlunoUiState.Success -> EditAlunoScreen(
             uiState = uiState,
             onBack = onBack,
+            onEditResponsavel = onEditResponsavel,
             onAlterarEntidade = onAlterarEntidade,
             modifier = modifier,
         )
@@ -70,6 +74,7 @@ internal fun EditAlunoScreen(
 private fun EditAlunoScreen(
     uiState: EditAlunoUiState.Success,
     onBack: () -> Unit,
+    onEditResponsavel: (String?) -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -167,6 +172,7 @@ private fun EditAlunoScreen(
             openSheet = openSheet,
             onOpenSheet = { openSheet = it },
             onEdit = onAlterarEntidade,
+            onEditResponsavel = onEditResponsavel,
         )
     }
 }

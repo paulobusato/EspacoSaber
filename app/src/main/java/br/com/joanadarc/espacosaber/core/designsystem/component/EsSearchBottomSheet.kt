@@ -41,6 +41,7 @@ fun EsSearchBottomSheet(
     onOpenSheet: (Boolean) -> Unit,
     onEdit: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
+    onEditResponsavel: (String?) -> Unit = {},
 ) {
     var openInnerSheet by rememberSaveable { mutableStateOf(false) }
     var entidadeId by rememberSaveable { mutableStateOf("") }
@@ -66,7 +67,12 @@ fun EsSearchBottomSheet(
                 OutlinedCard(
                     onClick = {
                         onOpenSheet(false)
-                        openInnerSheet = true
+
+                        if (entidade == "Responsavel") {
+                            onEditResponsavel(null)
+                        } else {
+                            openInnerSheet = true
+                        }
                     },
                     modifier = Modifier.padding(horizontal = 16.dp),
                 ) {
@@ -101,9 +107,14 @@ fun EsSearchBottomSheet(
                         )
                         IconButton(onClick = {
                             onOpenSheet(false)
-                            openInnerSheet = true
                             entidadeId = item.first
-                            entidadeNome = item.second
+
+                            if (entidade == "Responsavel") {
+                                onEditResponsavel(entidadeId)
+                            } else {
+                                openInnerSheet = true
+                                entidadeNome = item.second
+                            }
                         }) {
                             Icon(
                                 imageVector = Icons.Default.Edit,
