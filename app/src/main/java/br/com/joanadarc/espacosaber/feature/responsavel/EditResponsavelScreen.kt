@@ -35,11 +35,13 @@ import br.com.joanadarc.espacosaber.core.designsystem.component.EsTextField
 @Composable
 internal fun EditResponsavelRoute(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
     viewModel: EditResponsavelViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     EditResponsavelScreen(
         uiState = uiState,
+        onBack = onBack,
         onAlterarEntidade =  viewModel::alterarEntidade,
         modifier = modifier,
     )
@@ -48,6 +50,7 @@ internal fun EditResponsavelRoute(
 @Composable
 internal fun EditResponsavelScreen(
     uiState: EditResponsavelUiState,
+    onBack: () -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -55,6 +58,7 @@ internal fun EditResponsavelScreen(
         EditResponsavelUiState.Loading -> Unit
         is EditResponsavelUiState.Success -> EditResponsavelScreen(
             uiState = uiState,
+            onBack = onBack,
             onAlterarEntidade = onAlterarEntidade,
             modifier = modifier,
         )
@@ -65,6 +69,7 @@ internal fun EditResponsavelScreen(
 @Composable
 private fun EditResponsavelScreen(
     uiState: EditResponsavelUiState.Success,
+    onBack: () -> Unit,
     onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -73,7 +78,7 @@ private fun EditResponsavelScreen(
             CenterAlignedTopAppBar(
                 title = { Text(text = "Responsável") },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,

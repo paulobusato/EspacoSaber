@@ -63,7 +63,9 @@ class MainActivity : ComponentActivity() {
                             onEditResponsavel = { navController.navigateToEditResponsavel(it) })
                     }
                     composable<EditResponsavelRoute> {
-                        br.com.joanadarc.espacosaber.feature.responsavel.EditResponsavelRoute()
+                        br.com.joanadarc.espacosaber.feature.responsavel.EditResponsavelRoute(
+                            onBack = { navController.popBackStack() },
+                        )
                     }
                     composable<SessaoRoute> {
                         SessaoRoute(
