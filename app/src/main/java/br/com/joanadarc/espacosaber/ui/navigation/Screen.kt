@@ -11,10 +11,10 @@ object HomeRoute
 object AlunoRoute
 
 @Serializable
-object EditAlunoRoute
+data class EditAlunoRoute(val id: String? = null)
 
 fun NavController.navigateToAlunos() = navigate(route = AlunoRoute)
-fun NavController.navigateToEditAluno() = navigate(route = EditAlunoRoute)
+fun NavController.navigateToEditAluno(id: String? = null) = navigate(route = EditAlunoRoute(id))
 
 
 @Serializable
@@ -25,7 +25,7 @@ object EditResponsavelRoute
 object SessaoRoute
 
 @Serializable
-object EditSessaoRoute
+data class EditSessaoRoute(val id: String? = null)
 
 fun NavController.navigateToSessoes() = navigate(route = SessaoRoute)
-fun NavController.navigateToEditSessao() = navigate(route = EditSessaoRoute)
+fun NavController.navigateToEditSessao(id: String? = null) = navigate(route = EditSessaoRoute(id))

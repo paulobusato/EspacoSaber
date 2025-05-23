@@ -30,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.joanadarc.espacosaber.ui.navigation.AlunoRoute
+import br.com.joanadarc.espacosaber.ui.navigation.EditAlunoRoute
+import br.com.joanadarc.espacosaber.ui.navigation.EditSessaoRoute
 import br.com.joanadarc.espacosaber.ui.navigation.SessaoRoute
 import java.time.format.DateTimeFormatter
 
@@ -80,7 +82,7 @@ private fun HomeScreen(
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             Title(title = "Alunos", onClick = { onNavigate(AlunoRoute) })
-            Items(items = uiState.alunos) { aluno ->
+            Items(items = uiState.alunos, onClick = { onNavigate(EditAlunoRoute(it.id)) }) { aluno ->
                 Text(
                     text = aluno.nome ?: "",
                     style = MaterialTheme.typography.titleMedium,
@@ -88,8 +90,8 @@ private fun HomeScreen(
                 )
             }
 
-            Title(title = "Sessões" , onClick = { onNavigate(SessaoRoute) })
-            Items(items = uiState.sessoes) { sessao ->
+            Title(title = "Sessões", onClick = { onNavigate(SessaoRoute) })
+            Items(items = uiState.sessoes, onClick = { onNavigate(EditSessaoRoute(it.id)) }) { sessao ->
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
                         text = sessao.aluno?.nome ?: "",
@@ -103,7 +105,8 @@ private fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
-                            text = sessao.data?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) ?: "",
+                            text = sessao.data?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                                ?: "",
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier,
                         )
@@ -153,13 +156,14 @@ private fun Title(
 @Composable
 private fun <T> Items(
     items: List<T>,
+    onClick: (T) -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.(item: T) -> Unit,
 ) {
     LazyColumn(modifier = modifier) {
         items(items) { item ->
             OutlinedCard(
-                onClick = {},
+                onClick = { onClick(item) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(

@@ -44,7 +44,9 @@ class MainActivity : ComponentActivity() {
                             onNavigate = { route ->
                                 when (route) {
                                     AlunoRoute -> navController.navigateToAlunos()
+                                    is EditAlunoRoute -> navController.navigateToEditAluno(route.id)
                                     SessaoRoute -> navController.navigateToSessoes()
+                                    is EditSessaoRoute -> navController.navigateToEditSessao(route.id)
                                 }
                             }
                         )
