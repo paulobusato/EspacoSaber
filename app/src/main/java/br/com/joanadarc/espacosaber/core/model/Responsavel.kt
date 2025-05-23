@@ -1,6 +1,7 @@
 package br.com.joanadarc.espacosaber.core.model
 
 data class Responsavel(
+    val id: String? = null,
     val nome: String? = null,
     val cpf: String? = null,
     val dataNascimento: String? = null,

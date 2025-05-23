@@ -4,6 +4,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class Atividade(
+    val id: String? = null,
     val nome: String,
     val descricao: String,
     val categoria: String,

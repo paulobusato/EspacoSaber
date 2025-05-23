@@ -18,6 +18,7 @@ enum class Procedimento(val descricao: String) {
 }
 
 data class Sessao(
+    val id: String? = null,
     val queixa: String? = null,
     val encaminhamento: String? = null,
     val atividade: Atividade? = null,
