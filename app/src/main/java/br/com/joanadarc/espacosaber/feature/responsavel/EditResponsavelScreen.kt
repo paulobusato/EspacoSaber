@@ -40,6 +40,7 @@ internal fun EditResponsavelRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     EditResponsavelScreen(
         uiState = uiState,
+        onAlterarEntidade =  viewModel::alterarEntidade,
         modifier = modifier,
     )
 }
@@ -47,12 +48,14 @@ internal fun EditResponsavelRoute(
 @Composable
 internal fun EditResponsavelScreen(
     uiState: EditResponsavelUiState,
+    onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (uiState) {
         EditResponsavelUiState.Loading -> Unit
         is EditResponsavelUiState.Success -> EditResponsavelScreen(
             uiState = uiState,
+            onAlterarEntidade = onAlterarEntidade,
             modifier = modifier,
         )
     }
@@ -62,6 +65,7 @@ internal fun EditResponsavelScreen(
 @Composable
 private fun EditResponsavelScreen(
     uiState: EditResponsavelUiState.Success,
+    onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -100,11 +104,11 @@ private fun EditResponsavelScreen(
         var entidade by rememberSaveable { mutableStateOf("") }
         val items by rememberSaveable(entidade) {
             when (entidade) {
-                "Logradouro" -> mutableStateOf(uiState.logradouros.map { it.nome })
-                "Bairro" -> mutableStateOf(uiState.bairros.map { it.nome })
-                "Cidade" -> mutableStateOf(uiState.cidades.map { it.nome })
-                "Estado" -> mutableStateOf(uiState.estados.map { it.nome })
-                "Nacionalidade" -> mutableStateOf(uiState.nacionalidades.map { it.nome })
+                "Logradouro" -> mutableStateOf(uiState.logradouros.map { Pair(it.id ?: "", it.nome) })
+                "Bairro" -> mutableStateOf(uiState.bairros.map { Pair(it.id ?: "", it.nome) })
+                "Cidade" -> mutableStateOf(uiState.cidades.map { Pair(it.id ?: "", it.nome) })
+                "Estado" -> mutableStateOf(uiState.estados.map { Pair(it.id ?: "", it.nome) })
+                "Nacionalidade" -> mutableStateOf(uiState.nacionalidades.map { Pair(it.id ?: "", it.nome) })
                 else -> mutableStateOf(listOf())
             }
         }
@@ -150,6 +154,7 @@ private fun EditResponsavelScreen(
             items = items,
             openSheet = openSheet,
             onOpenSheet = { openSheet = it },
+            onEdit = onAlterarEntidade,
         )
     }
 }

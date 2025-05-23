@@ -13,9 +13,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedCard
@@ -34,12 +36,15 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun EsSearchBottomSheet(
     entidade: String,
-    items: List<String>,
+    items: List<Pair<String, String>>,
     openSheet: Boolean,
     onOpenSheet: (Boolean) -> Unit,
+    onEdit: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var openInnerSheet by rememberSaveable { mutableStateOf(false) }
+    var entidadeId by rememberSaveable { mutableStateOf("") }
+    var entidadeNome by rememberSaveable { mutableStateOf("") }
 
     if (openSheet) {
         ModalBottomSheet(
@@ -82,11 +87,30 @@ fun EsSearchBottomSheet(
                     }
                 }
                 Items(items = items) { item ->
-                    Text(
-                        text = item,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(16.dp),
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 16.dp),
+                    ) {
+                        Text(
+                            text = item.second,
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(16.dp),
+                        )
+                        IconButton(onClick = {
+                            onOpenSheet(false)
+                            openInnerSheet = true
+                            entidadeId = item.first
+                            entidadeNome = item.second
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = null,
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -107,7 +131,7 @@ fun EsSearchBottomSheet(
                     .padding(16.dp),
             ) {
                 EsTextField(
-                    value = "",
+                    value = entidadeNome,
                     onValueChange = {},
                     label = entidade,
                 )
@@ -115,6 +139,9 @@ fun EsSearchBottomSheet(
                 Button(onClick = {
                     openInnerSheet = false
                     onOpenSheet(true)
+                    onEdit(entidade, entidadeId, entidadeNome)
+                    entidadeId = ""
+                    entidadeNome = ""
                 }) {
                     Text(text = "Salvar")
                 }

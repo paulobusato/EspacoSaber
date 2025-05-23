@@ -78,6 +78,14 @@ class EditAlunoViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = EditAlunoUiState.Loading,
     )
+
+    fun alterarEntidade(
+        entidadeNome: String,
+        entidadeId: String,
+        entidadeDescricao: String,
+    ) {
+
+    }
 }
 
 sealed class EditAlunoUiState {

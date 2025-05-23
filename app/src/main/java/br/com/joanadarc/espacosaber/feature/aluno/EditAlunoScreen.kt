@@ -40,6 +40,7 @@ internal fun EditAlunoRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     EditAlunoScreen(
         uiState = uiState,
+        onAlterarEntidade =  viewModel::alterarEntidade,
         modifier = modifier,
     )
 }
@@ -47,12 +48,14 @@ internal fun EditAlunoRoute(
 @Composable
 internal fun EditAlunoScreen(
     uiState: EditAlunoUiState,
+    onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (uiState) {
         EditAlunoUiState.Loading -> Unit
         is EditAlunoUiState.Success -> EditAlunoScreen(
             uiState = uiState,
+            onAlterarEntidade = onAlterarEntidade,
             modifier = modifier,
         )
     }
@@ -62,6 +65,7 @@ internal fun EditAlunoScreen(
 @Composable
 private fun EditAlunoScreen(
     uiState: EditAlunoUiState.Success,
+    onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -100,13 +104,13 @@ private fun EditAlunoScreen(
         var entidade by rememberSaveable { mutableStateOf("") }
         val items by rememberSaveable(entidade) {
             when (entidade) {
-                "Escola" -> mutableStateOf(uiState.escolas.map { it.nome })
-                "Responsavel" -> mutableStateOf(uiState.responsaveis.map { it.nome ?: "" })
-                "Logradouro" -> mutableStateOf(uiState.logradouros.map { it.nome })
-                "Bairro" -> mutableStateOf(uiState.bairros.map { it.nome })
-                "Cidade" -> mutableStateOf(uiState.cidades.map { it.nome })
-                "Estado" -> mutableStateOf(uiState.estados.map { it.nome })
-                "Nacionalidade" -> mutableStateOf(uiState.nacionalidades.map { it.nome })
+                "Escola" -> mutableStateOf(uiState.escolas.map { Pair(it.id ?: "", it.nome) })
+                "Responsavel" -> mutableStateOf(uiState.responsaveis.map { Pair(it.id ?: "", it.nome ?: "") })
+                "Logradouro" -> mutableStateOf(uiState.logradouros.map { Pair(it.id ?: "", it.nome) })
+                "Bairro" -> mutableStateOf(uiState.bairros.map { Pair(it.id ?: "", it.nome) })
+                "Cidade" -> mutableStateOf(uiState.cidades.map { Pair(it.id ?: "", it.nome) })
+                "Estado" -> mutableStateOf(uiState.estados.map { Pair(it.id ?: "", it.nome) })
+                "Nacionalidade" -> mutableStateOf(uiState.nacionalidades.map { Pair(it.id ?: "", it.nome) })
                 else -> mutableStateOf(listOf())
             }
         }
@@ -157,6 +161,7 @@ private fun EditAlunoScreen(
             items = items,
             openSheet = openSheet,
             onOpenSheet = { openSheet = it },
+            onEdit = onAlterarEntidade,
         )
     }
 }

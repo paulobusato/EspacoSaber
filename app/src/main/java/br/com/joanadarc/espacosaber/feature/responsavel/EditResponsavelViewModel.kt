@@ -69,6 +69,14 @@ class EditResponsavelViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = EditResponsavelUiState.Loading,
         )
+
+    fun alterarEntidade(
+        entidadeNome: String,
+        entidadeId: String,
+        entidadeDescricao: String,
+    ) {
+
+    }
 }
 
 sealed class EditResponsavelUiState {

@@ -41,6 +41,7 @@ internal fun EditSessaoRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     EditSessaoScreen(
         uiState = uiState,
+        onAlterarEntidade = viewModel::alterarEntidade,
         modifier = modifier,
     )
 }
@@ -48,12 +49,14 @@ internal fun EditSessaoRoute(
 @Composable
 internal fun EditSessaoScreen(
     uiState: EditSessaoUiState,
+    onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (uiState) {
         EditSessaoUiState.Loading -> Unit
         is EditSessaoUiState.Success -> EditSessaoScreen(
             uiState = uiState,
+            onAlterarEntidade = onAlterarEntidade,
             modifier = modifier,
         )
     }
@@ -63,6 +66,7 @@ internal fun EditSessaoScreen(
 @Composable
 private fun EditSessaoScreen(
     uiState: EditSessaoUiState.Success,
+    onAlterarEntidade: (String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -161,9 +165,10 @@ private fun EditSessaoScreen(
 
         EsSearchBottomSheet(
             entidade = entidade,
-            items = uiState.atividades.map { it.nome },
+            items = uiState.atividades.map { Pair(it.id ?: "", it.nome) },
             openSheet = openSheet,
             onOpenSheet = { openSheet = it },
+            onEdit = onAlterarEntidade,
         )
     }
 }

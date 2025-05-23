@@ -31,6 +31,14 @@ class EditSessaoViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = EditSessaoUiState.Loading,
     )
+
+    fun alterarEntidade(
+        entidadeNome: String,
+        entidadeId: String,
+        entidadeDescricao: String,
+    ) {
+
+    }
 }
 
 sealed class EditSessaoUiState {
