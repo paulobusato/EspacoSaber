@@ -70,6 +70,7 @@ fun EsSearchBottomSheet(
 
                         if (entidade == "Responsavel") {
                             onEditResponsavel(null)
+                            onOpenSheet(true)
                         } else {
                             openInnerSheet = true
                         }
@@ -111,6 +112,7 @@ fun EsSearchBottomSheet(
 
                             if (entidade == "Responsavel") {
                                 onEditResponsavel(entidadeId)
+                                onOpenSheet(true)
                             } else {
                                 openInnerSheet = true
                                 entidadeNome = item.second
